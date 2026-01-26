@@ -16,15 +16,15 @@ LATEST_RELEASE_URL="https://github.com/${REPO}/releases/latest/download"
 
 # Функция для вывода сообщений
 log_info() {
-    echo -e "${GREEN}[INFO]${NC} $1"
+    echo -e "${GREEN}[INFO]${NC} $1" >&2
 }
 
 log_warn() {
-    echo -e "${YELLOW}[WARN]${NC} $1"
+    echo -e "${YELLOW}[WARN]${NC} $1" >&2
 }
 
 log_error() {
-    echo -e "${RED}[ERROR]${NC} $1"
+    echo -e "${RED}[ERROR]${NC} $1" >&2
 }
 
 # Проверка прав root
@@ -140,37 +140,19 @@ verify_installation() {
 show_usage() {
     log_info ""
     log_info "⚠️  ВАЖНО: Обязательно укажите URL с списками подсетей через параметр -u"
-    echo ""
+    echo "" >&2
     log_info "Публичные списки доступны здесь:"
-    echo "  https://github.com/shadow-netlab/traffic-guard-lists/tree/main"
-    echo ""
-    log_info "Примеры использования:"
-    echo ""
-    echo "  # Блокировка Censys"
-    echo "  sudo ${BINARY_NAME} full \\"
-    echo "    -u https://raw.githubusercontent.com/shadow-netlab/traffic-guard-lists/main/censys.txt"
-    echo ""
-    echo "  # Блокировка нескольких сканеров"
-    echo "  sudo ${BINARY_NAME} full \\"
-    echo "    -u https://raw.githubusercontent.com/shadow-netlab/traffic-guard-lists/main/censys.txt \\"
-    echo "    -u https://raw.githubusercontent.com/shadow-netlab/traffic-guard-lists/main/shodan.txt"
-    echo ""
-    echo "  # С включенным логированием"
-    echo "  sudo ${BINARY_NAME} full \\"
-    echo "    -u https://raw.githubusercontent.com/shadow-netlab/traffic-guard-lists/main/censys.txt \\"
-    echo "    -u https://raw.githubusercontent.com/shadow-netlab/traffic-guard-lists/main/shodan.txt \\"
-    echo "    --enable-logging"
-    echo ""
+    echo "  https://github.com/shadow-netlab/traffic-guard-lists/tree/main" >&2
     log_info "Для получения полной справки:"
-    echo ""
-    echo "  ${BINARY_NAME} --help"
-    echo ""
+    echo "" >&2
+    echo "  ${BINARY_NAME} --help" >&2
+    echo "" >&2
 }
 
 # Главная функция
 main() {
     log_info "=== Установка Traffic Guard ==="
-    echo ""
+    echo "" >&2
 
     # Проверка прав
     check_root
@@ -187,7 +169,7 @@ main() {
 
     # Проверка
     if verify_installation; then
-        echo ""
+        echo "" >&2
         show_usage
         exit 0
     else
