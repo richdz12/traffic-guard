@@ -149,7 +149,7 @@ v6|2001:db8::1|AS12345|EXAMPLE-NET|12|2026-01-25T17:08:05.987654+03:00
 
 ```bash
 # Последние агрегированные данные
-tail -f /var/log/iptables-scanners-aggregate.log
+tail -f /var/log/iptables-scanners-aggregate.csv
 
 # Статус systemd timer
 systemctl status antiscan-aggregate.timer
