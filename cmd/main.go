@@ -15,6 +15,7 @@ var (
 	urls          []string
 	enableLogging bool
 	logLevel      string
+	version       = "dev" // Версия будет устанавливаться при сборке через -ldflags
 )
 
 func main() {
@@ -23,9 +24,10 @@ func main() {
 	logger.SetGlobalLogger(log)
 
 	rootCmd := &cobra.Command{
-		Use:   "antiscan",
-		Short: "Инструмент для управления блокировкой сканеров через iptables и ipset",
-		Long:  `Утилита для скачивания списков подсетей сканеров и настройки правил iptables/ipset для их блокировки.`,
+		Use:     "antiscan",
+		Short:   "Инструмент для управления блокировкой сканеров через iptables и ipset",
+		Long:    `Утилита для скачивания списков подсетей сканеров и настройки правил iptables/ipset для их блокировки.`,
+		Version: version,
 		PersistentPreRun: func(cmd *cobra.Command, args []string) {
 			// Update logger level if specified
 			if logLevel != "" {
