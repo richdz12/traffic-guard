@@ -126,8 +126,7 @@ install_binary() {
 # Проверка установки
 verify_installation() {
     if command -v ${BINARY_NAME} &> /dev/null; then
-        local version=$(${BINARY_NAME} --version 2>&1 || echo "unknown")
-        log_info "✓ ${BINARY_NAME} установлен: ${version}"
+        log_info "✓ ${BINARY_NAME} успешно установлен"
         log_info "Путь: $(which ${BINARY_NAME})"
         return 0
     else
