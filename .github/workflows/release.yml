@@ -1,0 +1,84 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build and Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.25"
+
+      - name: Get version from tag
+        id: get_version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+
+      - name: Build binaries
+        run: |
+          mkdir -p dist
+
+          # Linux AMD64
+          GOOS=linux GOARCH=amd64 go build -o dist/traffic-guard-linux-amd64 cmd/main.go
+
+          # Linux ARM64
+          GOOS=linux GOARCH=arm64 go build -o dist/traffic-guard-linux-arm64 cmd/main.go
+
+          # Linux ARM
+          GOOS=linux GOARCH=arm go build -o dist/traffic-guard-linux-arm cmd/main.go
+
+          # Linux 386
+          GOOS=linux GOARCH=386 go build -o dist/traffic-guard-linux-386 cmd/main.go
+
+      - name: Create checksums
+        run: |
+          cd dist
+          sha256sum * > checksums.txt
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/traffic-guard-*
+            dist/checksums.txt
+          body: |
+            ## Release ${{ steps.get_version.outputs.VERSION }}
+
+            ### Installation
+
+            Download the appropriate binary for your system:
+
+            **Linux:**
+            - `traffic-guard-linux-amd64` - 64-bit Intel/AMD
+            - `traffic-guard-linux-arm64` - 64-bit ARM (Raspberry Pi 4+, etc.)
+            - `traffic-guard-linux-arm` - 32-bit ARM
+            - `traffic-guard-linux-386` - 32-bit Intel/AMD
+
+            ### Verify Download
+            ```bash
+            sha256sum -c checksums.txt
+            ```
+
+            ### Usage
+            ```bash
+            chmod +x traffic-guard-linux-amd64
+            ./traffic-guard-linux-amd64
+            ```
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
