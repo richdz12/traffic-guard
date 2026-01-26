@@ -4,7 +4,7 @@ package service
 const (
 	// IpsetRestoreServiceTemplate is the systemd service for restoring ipset on boot
 	IpsetRestoreServiceTemplate = `[Unit]
-Description=Restore AntiScan ipset configuration
+Description=Restore TrafficGuard ipset configuration
 Before=ufw.service
 Before=netfilter-persistent.service
 DefaultDependencies=no
@@ -23,7 +23,7 @@ RequiredBy=netfilter-persistent.service
 
 	// MoveRulesServiceTemplate is the systemd service for moving SCANNERS-BLOCK to position 1
 	MoveRulesServiceTemplate = `[Unit]
-Description=Move AntiScan rules to position 1 in UFW chains
+Description=Move TrafficGuard rules to position 1 in UFW chains
 After=ufw.service
 After=network.target
 
@@ -42,7 +42,7 @@ WantedBy=multi-user.target
 
 	// AggregateLogsServiceTemplate is the systemd service for log aggregation
 	AggregateLogsServiceTemplate = `[Unit]
-Description=AntiScan Log Aggregator
+Description=TrafficGuard Log Aggregator
 After=rsyslog.service
 
 [Service]
@@ -54,7 +54,7 @@ StandardError=journal
 
 	// AggregateLogsTimerTemplate is the systemd timer for log aggregation
 	AggregateLogsTimerTemplate = `[Unit]
-Description=AntiScan Log Aggregator Timer
+Description=TrafficGuard Log Aggregator Timer
 Requires=antiscan-aggregate.service
 
 [Timer]
@@ -68,7 +68,7 @@ WantedBy=timers.target
 
 	// AggregateLogsScriptTemplate is the bash script for log aggregation
 	AggregateLogsScriptTemplate = `#!/bin/bash
-# AntiScan Log Aggregation Script
+# TrafficGuard Log Aggregation Script
 # Aggregates iptables logs into CSV format with ASN/netname lookup
 #
 # Output CSV format: IP_TYPE|IP_ADDRESS|ASN|NETNAME|COUNT|LAST_SEEN

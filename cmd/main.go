@@ -24,7 +24,7 @@ func main() {
 	logger.SetGlobalLogger(log)
 
 	rootCmd := &cobra.Command{
-		Use:     "antiscan",
+		Use:     "traffic-guard",
 		Short:   "Инструмент для управления блокировкой сканеров через iptables и ipset",
 		Long:    `Утилита для скачивания списков подсетей сканеров и настройки правил iptables/ipset для их блокировки.`,
 		Version: version,
@@ -92,7 +92,7 @@ func runFull(cmd *cobra.Command, args []string) {
 			log.Warn().Msg("  sudo ufw allow 22/tcp")
 			log.Warn().Msg("  sudo ufw allow OpenSSH")
 			log.Warn().Msg("")
-			log.Warn().Msg("antiscan проверит наличие правил SSH и прервёт установку если их нет")
+			log.Warn().Msg("traffic-guard проверит наличие правил SSH и прервёт установку если их нет")
 			log.Warn().Msg("")
 		}
 	}
