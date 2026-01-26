@@ -84,7 +84,7 @@ download_binary() {
     log_info "URL: ${download_url}"
 
     if command -v curl &> /dev/null; then
-        if ! curl -fSL "${download_url}" -o "${temp_file}"; then
+        if ! curl -fsSL "${download_url}" -o "${temp_file}"; then
             log_error "Ошибка при скачивании бинарника"
             exit 1
         fi
