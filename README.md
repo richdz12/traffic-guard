@@ -2,6 +2,42 @@
 
 Утилита для блокировки сканеров портов через iptables и ipset с поддержкой логирования и агрегации статистики.
 
+## Установка
+
+### Автоматическая установка
+
+Скачайте и запустите установочный скрипт:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/dotX12/traffic-guard/master/install.sh | sudo bash
+```
+
+или
+
+```bash
+wget -qO- https://raw.githubusercontent.com/dotX12/traffic-guard/master/install.sh | sudo bash
+```
+
+Скрипт автоматически:
+- Определит архитектуру системы (amd64, 386, arm, arm64)
+- Скачает последний релиз для вашей системы
+- Установит бинарник в `/usr/local/bin`
+- Выдаст права на выполнение
+
+### Ручная установка
+
+1. Скачайте нужный бинарник из [последнего релиза](https://github.com/dotX12/traffic-guard/releases/latest):
+   - `traffic-guard-linux-amd64` - для 64-битных систем
+   - `traffic-guard-linux-386` - для 32-битных систем
+   - `traffic-guard-linux-arm` - для ARM
+   - `traffic-guard-linux-arm64` - для ARM64
+
+2. Установите:
+```bash
+sudo mv traffic-guard-linux-* /usr/local/bin/traffic-guard
+sudo chmod +x /usr/local/bin/traffic-guard
+```
+
 ## Возможности
 
 - 📥 Скачивание списков подсетей сканеров из внешних источников
@@ -12,19 +48,56 @@
 
 ## Использование
 
-Выполняет все шаги: скачивание, настройка ipset, iptables, сохранение:
+### ⚠️ Важно
+
+**Обязательно** необходимо передать один или несколько URL с списками подсетей через параметр `-u`:
 
 ```bash
-sudo antiscan full
-sudo antiscan full --enable-logging  # С логированием
-sudo antiscan full -u https://custom.com/scanners.txt --enable-logging
+sudo traffic-guard full -u https://raw.githubusercontent.com/shadow-netlab/traffic-guard-lists/refs/heads/main/public/government_networks.list
+```
+
+Можно указать несколько источников:
+
+```bash
+sudo traffic-guard full \
+  -u https://raw.githubusercontent.com/shadow-netlab/traffic-guard-lists/refs/heads/main/public/government_networks.list \
+  -u https://raw.githubusercontent.com/shadow-netlab/traffic-guard-lists/refs/heads/main/public/antiscanner.list \
+  --enable-logging
+```
+
+### Публичные списки
+
+Готовые списки подсетей сканеров доступны в репозитории: 
+**[shadow-netlab/traffic-guard-lists](https://github.com/shadow-netlab/traffic-guard-lists/tree/main)**
+
+Доступные списки:
+- `public/antiscanner.list` - список от **[zakachkin/AntiScanner](https://github.com/zakachkin/AntiScanner)**
+- `public/government_networks.list` - подсети различных сканеров государственных организаций
+
+### Примеры использования
+
+Базовая блокировка без логирования:
+
+```bash
+sudo traffic-guard full \
+  -u https://raw.githubusercontent.com/shadow-netlab/traffic-guard-lists/refs/heads/main/public/government_networks.list \
+  -u https://raw.githubusercontent.com/shadow-netlab/traffic-guard-lists/refs/heads/main/public/antiscanner.list
+```
+
+С включенным логированием:
+
+```bash
+sudo traffic-guard full \
+  -u https://raw.githubusercontent.com/shadow-netlab/traffic-guard-lists/refs/heads/main/public/government_networks.list \
+  -u https://raw.githubusercontent.com/shadow-netlab/traffic-guard-lists/refs/heads/main/public/antiscanner.list \
+  --enable-logging
 ```
 
 ### Опции
 
-- `--log-level` - уровень логирования (debug, info, warn, error). По умолчанию: info
-- `-u, --urls` - список URL для скачивания подсетей
+- **`-u, --urls`** (обязательно) - URL для скачивания подсетей. Можно указать несколько раз
 - `-l, --enable-logging` - включить логирование заблокированных подключений
+- `--log-level` - уровень логирования (debug, info, warn, error). По умолчанию: info
 
 ## Логирование
 
