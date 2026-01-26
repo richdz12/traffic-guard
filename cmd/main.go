@@ -45,6 +45,7 @@ func main() {
 	}
 	fullCmd.Flags().StringSliceVarP(&urls, "urls", "u", []string{}, "Список URL для скачивания подсетей")
 	fullCmd.Flags().BoolVarP(&enableLogging, "enable-logging", "l", false, "Включить логирование заблокированных подключений")
+	fullCmd.MarkFlagRequired("urls")
 
 	rootCmd.AddCommand(fullCmd)
 
